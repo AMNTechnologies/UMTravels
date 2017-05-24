@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Billal Travel</title>
+    <link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/assets/css/owl.theme.css">
+    <link rel="stylesheet" href="~/Content/assets/css/flexslider.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/assets/css/main.css">
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/style1.css" rel="stylesheet" />
+
+
+    <script src="~/Content/assets/js/jquery-1.11.2.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Content/assets/js/contact.js"></script>
+    <script src="~/Content/assets/js/jquery.flexslider.js"></script>
+    <script src="~/Content/assets/js/script.js"></script>
+    @RenderSection("hover", false)
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-45690170-1', 'jssor.com');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>
+    @RenderSection("s1", false)
+    <script>
+        $(document).ready(function () {
+            $("#lgn").click(function () {
+                document.getElementById("usrn").value = "";
+                document.getElementById("pwd").value = "";
+                document.getElementById("c1").checked = false;
+            });
+            $("#gtm").click(function () {
+                document.getElementById("newpssd").value = "";
+                document.getElementById("pssd").value = "";
+            });
+            $("#nm").click(function () {
+                document.getElementById("newpssd").value = "";
+                document.getElementById("pssd").value = "";
+            });
+            $("#reg").click(function () {
+                if ($("#pssd").val() != $("#newpssd").val()) {
+                    alert("Mis-Match Error");
+                    document.getElementById("newpssd").value = "";
+                    document.getElementById("pssd").value = "";
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" title="HOME"><i class="ion-android-bus"></i> UM <span>travel</span></a>
+            </div> <!-- /.navbar-header -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active">@Html.ActionLink("Home", "Home","Home")</li>
+                    <li>@Html.ActionLink("Bus", "Bus", "Bus")</li>
+                    <li>@Html.ActionLink("Ticket", "Ticket", "Status")</li>
+                    <li>@Html.ActionLink("Customer Status", "Customer", "Status")</li>
+                    <li>@Html.ActionLink("About", "about", "Home")</li>
+                    <li>@Html.ActionLink("Contact Us", "contact", "Home")</li>
+                    @if (HttpContext.Current.Session["login"] == null)
+                    {
+                        <li><input type="button" id="lgn" class="main-slider__btn btn btn-default btn-round" data-toggle="modal" data-target="#loginmodal" value="Login" /></li>
+                        <li><input type="button" id="gtm" class="main-slider__btn btn btn-default btn-round" data-toggle=" modal" data-target="#Regmodal" value="Get Membership" /></li>
+                    }
+                    else if (Session["login"] == "true")
+                    {
+                        <a href="#"><span style="color:green">@Session["name"] &nbsp|&nbsp </span></a>
+                        <a role="button" class="btn btn-danger" href="@Url.Action("logout", "Home")"><i class="fa fa-shopping-cart"></i>Logout</a>
+                    }
+                </ul> <!-- /.nav -->
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container -->
+    </nav>
+    <div id="Regmodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="container">
+                    <div class="center">
+                        <h2 class="skill_text">Register with Us</h2>
+                        <p class="lead">Start your journey </p>
+                    </div>
+                    <div class="row contact-wrap">
+                        <div class="status alert alert-success" style="display: none"></div>
+                        <form id="main-contact-form" class="contact-form" method="post" action="@Url.Action("addMember", "Home")">
+                            <div class="col-sm-5 col-sm-offset-1">
+                                <div class="form-group">
+                                    <label>CNIC</label>
+                                    <input type="number" name="cnic" id="usr" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Name *</label>
+                                    <input type="text" class="form-control" name="name" id="n" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" name="email" id="eml" class="form-control" required="required">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Password *</label>
+                                    <input type="password" name="pwd" id="pssd" class="form-control" required="required">
+                                    <div id="pwwd" style="color:red; font-size:15px;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password *</label>
+                                    <input type="password" id="newpssd" class="form-control" required="required">
+                                    <div id="pwwd1" style="color:red; font-size:15px;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <button id="reg" type="submit" name="submit" class="main-slider__btn btn btn-default btn-round btn-back-blue" required="required">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div><!--/.row-->
+                </div>
+            </div><!--/.container-->
+        </div>
+    </div>
+    <div id="loginmodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="container">
+                    <div class="center">
+                        <h2 class="skill_text">Login with Us</h2>
+                        <p class="lead">One Step Away</p>
+                    </div>
+                    <div class="row contact-wrap">
+                        <div class="status alert alert-success" style="display: none"></div>
+                        <form id="main-contact-form" class="contact-form" method="post" action="@Url.Action("login", "Home")">
+                            <div class="col-sm-5 col-sm-offset-1">
+                                <div class="form-group">
+                                    <label>CNIC</label>
+                                    <input type="number" name="cnic" id="usrn" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password *</label>
+                                    <input type="password" name="pwd" id="pwd" class="form-control" required="required">
+                                    <div id="pwwd" style="color:red; font-size:15px;"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button id="L" type="submit" name="submit" class="main-slider__btn btn btn-default btn-round btn-back-blue" required="required">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div><!--/.row-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="text-left" style="color: #fff;">
+                        &copy; Copyright Billal Travels
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                </div>
+                <div class="col-xs-4">
+                    <!-- <div class="top">
+                        <a href="#header">
+                            <i class="ion-arrow-up-b"></i>
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        $('#usr').blur(function () {
+            debugger;
+            var usrname = $('#usr').val();
+            $('#checking').show();
+            $.getJSON("/Home/Check?CNIC=" + usrname, function (data) {
+                $('#checking').hide();
+                if (data) {
+                    $('#divOutput').text("CNIC Already exist");
+                } else {
+                    $('#divOutput').text("CNIC is available");
+                }
+            });
+        });
+        //$('#lgn').on('click', function () {
+        //    $('#login').modal()
+        //});
+    </script>
+
+</body>
+
+</html>

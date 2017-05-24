@@ -1,0 +1,45 @@
+﻿@model List<BusReserveSystem.Models.Reservation>
+@*<script>
+    $(document).ready(function () {
+        $("#d1").load("../../Views/Status/common");
+    });
+</script>*@
+
+<div class="container" id ="abtus">
+  <div class="jumbotron">
+    <h1 style ="text-align:center"> @ViewBag.name's Record</h1>
+</div>
+    </div>
+<div class="container" id ="d1">
+    
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><b>CNIC No: </b></td>
+                <td>@ViewBag.cnic</td>
+            </tr>
+            <tr>
+                <td><b>Total Reservations: </b></td>
+                <td>@Model.Count<a href ="#all">click here to see all reservations.</a></td>
+            </tr>
+            <tr>
+                <td><b>Total Tickets: </b></td>
+                <td>@ViewBag.tkts</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+<@*div class="tab-content">
+<div id="Ticket@(i+1)" class="tab-pane fade">
+                <table class="table">
+            <tbody style ="border-bottom:none">
+                <tr >
+                    </tr>
+                </tbody>
+                    </table>
+                    </div>
+    </div>*@
+
+    
+@{ViewBag.Title = "Customer Status";}
